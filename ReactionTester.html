@@ -1,0 +1,112 @@
+<html>
+
+	<head>
+		<title>JavaScript</title>
+		
+		<style>
+		
+			#shape{
+				display:none;
+			}
+			
+			
+			
+			
+			
+		</style>
+		
+	</head>
+	
+	<body>
+		
+		<h1>Test your reactions!</h1>
+		
+		<p>Click on the figure as soon as it appears</p>
+		
+		<p id="para"></p>
+		
+		<div id="shape">
+		
+		</div>
+			
+		
+		
+		
+		<script type="text/javascript">
+		
+			var colors = ["red","blue"];
+			var dim = [5000,1000];
+			var id = ["circle","square"];
+			
+			
+			
+			var x = Math.random() < 0.5 ? colors[0]:colors[1];
+			var y = Math.random() < 0.5 ? dim[0]:dim[1];
+			var z = Math.random() < 0.5 ? id[0]:id[1];
+			
+			//alert(x);
+			//alert(y);
+			//alert(z);
+			var start = 0;
+			var end = 0;
+			var timeTaken=0;
+			
+			function getRandomColor() {
+			
+				var letters = '0123456789ABCDEF';
+				var color = '#';
+				for (var i = 0; i < 6; i++) {
+					color += letters[Math.floor(Math.random() * 16)];
+				  }
+				return color;
+				}
+			
+			
+			function makeShapeAppear() {
+				
+				var m = Math.random()*500;
+				document.getElementById("shape").style.margin = m +"px";
+				
+				var hw = Math.random()*200;
+				document.getElementById("shape").style.height = hw +"px";
+				document.getElementById("shape").style.width = hw +"px";
+				
+				var whichShape = Math.random() < 0.5 ? 0:1;
+				var rad=0;
+				if(whichShape==1)
+					rad = hw/2;
+				
+				document.getElementById("shape").style.borderRadius = rad +"px";
+			
+				document.getElementById("shape").style.backgroundColor = getRandomColor();
+				
+				document.getElementById("shape").style.display = "block";
+				start = new Date().getTime();
+			}
+			
+			function appearRandomly() {
+			
+				setTimeout(makeShapeAppear,(Math.floor(Math.random()*5000 + 1000)));
+			
+			}
+			
+			//calculating time from display to click.
+			
+			appearRandomly();
+			
+			document.getElementById("shape").onclick = function() {
+				
+				end = new Date().getTime();
+				document.getElementById("shape").style.display = "none";
+				timeTaken = end-start;
+				document.getElementById("para").innerHTML = "You took: "+timeTaken+" milliseconds";
+				appearRandomly();
+			}
+			
+			
+			
+		</script>
+		
+	</body>
+	
+</html>	
